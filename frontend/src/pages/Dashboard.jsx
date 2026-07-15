@@ -1,15 +1,47 @@
+import { useEffect, useState } from "react";
+
+import UploadBox from "../components/UploadBox";
+import Workspace from "../components/Workspace";
+
+import { getIncidents } from "../services/incidentService";
+
 export default function Dashboard() {
-  return (
-    <main className="mx-auto max-w-7xl p-8">
 
-      <h2 className="text-3xl font-bold">
-        Welcome
-      </h2>
+    const [incidents, setIncidents] = useState([]);
 
-      <p className="mt-2 text-slate-400">
-        Upload a CSV file to begin investigating incidents.
-      </p>
+    const [selectedIncident, setSelectedIncident] = useState(null);
 
-    </main>
-  );
+    async function loadIncidents() {
+
+        try {
+
+            const data = await getIncidents();
+
+            setIncidents(data.incidents);
+
+        } catch (err) {
+
+            console.error(err);
+
+        }
+
+    }
+
+    useEffect(() => {
+
+        loadIncidents();
+
+    }, []);
+
+    return (
+        <>
+            <UploadBox onUploadSuccess={loadIncidents} />
+
+            <Workspace
+                incidents={incidents}
+                selectedIncident={selectedIncident}
+                onSelectIncident={setSelectedIncident}
+            />
+        </>
+    );
 }
