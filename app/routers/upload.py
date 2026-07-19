@@ -5,6 +5,7 @@ from datetime import datetime
 
 from app.database import SessionLocal
 from app.models.log import Log
+from app.services.incident_service import refresh_incidents
 
 router = APIRouter()
 
@@ -32,6 +33,8 @@ async def upload_logs(file: UploadFile = File(...)):
             count += 1
 
         db.commit()
+
+        refresh_incidents()
 
         return {"message": f"{count} logs inserted"}
 

@@ -8,6 +8,10 @@ from app.services.similarity_service import get_similar_incidents
 stored_incidents = []
 stored_embeddings = []
 
+def reset_memory():
+    stored_incidents.clear()
+    stored_embeddings.clear()
+
 def generate_summary(incident_data):
 
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
