@@ -1,13 +1,12 @@
 import Panel from "./Panel";
 import EmptyState from "./EmptyState";
+import CopilotPanel from "./CopilotPanel";
 
 export default function Workspace({
     incidents,
     selectedIncident,
     onSelectIncident,
 }) {
-
-  console.log(incidents);   // <-- HERE
 
   return (
     <div className="mx-auto mt-8 max-w-7xl px-8">
@@ -99,6 +98,12 @@ export default function Workspace({
                           </div>
 
                       </div>
+                      
+                      <div>
+
+                            <CopilotPanel />
+
+                        </div>
 
                   </div>
 
