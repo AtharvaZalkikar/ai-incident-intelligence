@@ -92,6 +92,7 @@ def get_saved_incidents():
         for incident in incidents:
             response.append(
                 {
+                    "id": incident.id,
                     "start_time": incident.start_time,
                     "end_time": incident.end_time,
                     "log_count": incident.log_count,
@@ -102,6 +103,34 @@ def get_saved_incidents():
             )
 
         return response
+
+    finally:
+        db.close()
+
+
+def get_incident_by_id(incident_id: int):
+    db = SessionLocal()
+
+    try:
+
+        incident = (
+            db.query(Incident)
+            .filter(Incident.id == incident_id)
+            .first()
+        )
+
+        if incident is None:
+            return None
+
+        return {
+            "id": incident.id,
+            "start_time": incident.start_time,
+            "end_time": incident.end_time,
+            "log_count": incident.log_count,
+            "nodes": json.loads(incident.nodes),
+            "failure_analysis": json.loads(incident.failure_analysis),
+            "summary": incident.summary,
+        }
 
     finally:
         db.close()

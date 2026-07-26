@@ -14,7 +14,7 @@ def reset_memory():
 
 def generate_summary(incident_data):
 
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    # client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     # Convert to text
     incident_text = incident_to_text(incident_data)
@@ -48,18 +48,14 @@ def generate_summary(incident_data):
         {similar_text}
     """
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "user", "content": prompt}
-        ]
-    )
+    summary = generate_completion(prompt)
 
     # Store this incident for future use
     stored_incidents.append(incident_data)
     stored_embeddings.append(embedding)
 
-    return response.choices[0].message.content
+    return summary
+    
 
 
 
@@ -71,3 +67,21 @@ def incident_to_text(incident_data):
         text += f"{r['reason']} ({r['percentage']}%), "
 
     return text
+
+def generate_completion(prompt: str) -> str:
+
+    client = OpenAI(
+        api_key=os.getenv("OPENAI_API_KEY")
+    )
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt,
+            }
+        ],
+    )
+
+    return response.choices[0].message.content

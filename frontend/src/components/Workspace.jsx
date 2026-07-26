@@ -2,6 +2,17 @@ import Panel from "./Panel";
 import EmptyState from "./EmptyState";
 import CopilotPanel from "./CopilotPanel";
 
+
+function formatDate(dateString) {
+    return new Date(dateString).toLocaleString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+    });
+}
+
 export default function Workspace({
     incidents,
     selectedIncident,
@@ -44,12 +55,12 @@ export default function Workspace({
                                   {incident.nodes.join(", ")}
                               </h3>
 
-                              <p className="mt-1 text-sm text-slate-400">
-                                  {incident.log_count} Logs
+                              <p className="mt-1 text-slate-400">
+                                  {incident.log_count} Logs • {formatDate(incident.start_time)}
                               </p>
 
                               <p className="mt-2 text-xs text-slate-500">
-                                  {incident.start_time}
+                                 {formatDate(incident.start_time)}
                               </p>
 
                           </div>
@@ -78,7 +89,7 @@ export default function Workspace({
                           </h2>
 
                           <p className="mt-1 text-slate-400">
-                              {selectedIncident.log_count} Logs
+                              {selectedIncident.log_count} Logs • {formatDate(selectedIncident.start_time)}
                           </p>
 
                       </div>
@@ -86,7 +97,7 @@ export default function Workspace({
                       <div>
 
                           <h3 className="mb-2 text-lg font-semibold">
-                              AI Summary
+                              Incident Analysis
                           </h3>
 
                           <div className="rounded-lg border border-slate-700 bg-slate-800 p-4">
@@ -101,7 +112,9 @@ export default function Workspace({
                       
                       <div>
 
-                            <CopilotPanel />
+                            <CopilotPanel 
+                                selectedIncident={selectedIncident}
+                            />
 
                         </div>
 
