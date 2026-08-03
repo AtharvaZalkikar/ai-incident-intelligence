@@ -28,6 +28,31 @@ The result is a streamlined investigation experience that helps engineers unders
 - ⚛️ Modern React dashboard with an interactive investigation workspace
 - 🏗️ Clean service-layer architecture following separation of concerns
 
+
+## Screenshots
+
+### Dashboard
+
+The main investigation workspace showing uploaded incidents and the investigation dashboard.
+
+![Dashboard](assets/dashboard.png)
+
+---
+
+### AI Investigation
+
+The AI Copilot processing a natural language question for the selected incident.
+
+![AI Investigation](assets/ai-investigating.png)
+
+---
+
+### AI Copilot Response
+
+A context-aware AI explanation generated using structured incident data.
+
+![AI Copilot](assets/ai-copilot.png)
+
 ## Features
 
 ### 📂 Log Ingestion
@@ -62,6 +87,11 @@ The result is a streamlined investigation experience that helps engineers unders
 - View incident summaries and investigate issues using the integrated AI Copilot.
 
 ## Architecture
+
+
+The platform follows a layered architecture with a React frontend, FastAPI backend, dedicated service layer, persistent incident storage, and OpenAI integration.
+
+![Architecture](assets/architecture.png)
 
 ```text
                 CSV Upload
