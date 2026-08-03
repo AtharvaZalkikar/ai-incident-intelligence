@@ -1,13 +1,12 @@
 from dotenv import load_dotenv
+
 # import os
-
 from fastapi import FastAPI
-from app.routers import health, upload, analysis, copilot
-from app.database import engine, Base
-from app.models import log, incident  # important import  # noqa: F401
-
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.database import Base, engine
+from app.models import incident, log  # important import  # noqa: F401
+from app.routers import analysis, copilot, health, upload
 
 load_dotenv()
 
